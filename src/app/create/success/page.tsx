@@ -5,13 +5,13 @@ import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 
-export default function CreateSuccess() {
+function CreateSuccessContent() {
   const searchParams = useSearchParams();
   const voteID = searchParams.get("id");
 
-  const domain = "http://localhost:3000"; // change later or use env var
+  const domain = process.env.NEXT_PUBLIC_APP_URL;
   const voteLink = `${domain}/vote/${voteID}`;
   const reportLink = `${domain}/report/${voteID}`;
 
@@ -19,7 +19,6 @@ export default function CreateSuccess() {
 
   useEffect(() => {
     const timeout = setTimeout(() => setWasCopied(false), 2000);
-
     return () => clearTimeout(timeout);
   }, [wasCopied]);
 
@@ -59,5 +58,13 @@ export default function CreateSuccess() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function CreateSuccess() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <CreateSuccessContent />
+    </Suspense>
   );
 }
