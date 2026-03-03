@@ -188,6 +188,8 @@ function getVotesWithCurrentTemp(
 
 export function calculateAverageGuess(votes: Vote[]): string {
   const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  if (!votesWithCurrentTemp.length) return "- °";
+
   return formatTemp(
     votesWithCurrentTemp.reduce((sum, v) => sum + v.current_temp, 0) /
       votesWithCurrentTemp.length,
@@ -199,6 +201,8 @@ export function calculateAveragePerceptionBias(
   currentTemp: number,
 ): string {
   const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  if (!votesWithCurrentTemp.length) return "- °";
+
   return formatBias(
     votesWithCurrentTemp.reduce(
       (sum, v) => sum + (v.current_temp - currentTemp),
@@ -212,6 +216,8 @@ export function calculateGotItRight(
   currentTemp: number,
 ): string {
   const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  if (!votesWithCurrentTemp.length) return "0%";
+
   const correct = votesWithCurrentTemp.filter(
     (v) => Math.abs(v.current_temp - currentTemp) <= 0.5,
   );
@@ -223,6 +229,8 @@ export function calculateUnderestimated(
   currentTemp: number,
 ): string {
   const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  if (!votesWithCurrentTemp.length) return "0%";
+
   const under = votesWithCurrentTemp.filter(
     (v) => v.current_temp < currentTemp - 0.5,
   );
@@ -234,6 +242,8 @@ export function calculateOverestimated(
   currentTemp: number,
 ): string {
   const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  if (!votesWithCurrentTemp.length) return "0%";
+
   const over = votesWithCurrentTemp.filter(
     (v) => v.current_temp > currentTemp + 0.5,
   );
