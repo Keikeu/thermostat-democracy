@@ -1,19 +1,16 @@
 import { CartesianGrid, ReferenceLine, XAxis, YAxis } from "recharts";
 
 export const useSharedChartElements = ({
+  dataKey,
   sweetSpot,
   currentTemp,
 }: {
+  dataKey: string;
   sweetSpot: number;
   currentTemp: number;
 }) => [
   <CartesianGrid key="grid" />,
-  <YAxis
-    key="yaxis"
-    dataKey="comfortableCount"
-    tickLine={true}
-    tickMargin={10}
-  />,
+  <YAxis key="yaxis" dataKey={dataKey} tickLine={true} tickMargin={10} />,
   <XAxis
     key="xaxis"
     dataKey="temperature"

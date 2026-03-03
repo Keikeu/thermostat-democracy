@@ -10,7 +10,7 @@ import { Unit } from "@/lib/types";
 type TemperatureSliderProps = React.ComponentProps<
   typeof SliderPrimitive.Root
 > & {
-  unit?: Unit;
+  unit: Unit;
   value?: number[];
   onValueChange: (value: number[]) => void;
   marker?: number;
@@ -20,7 +20,7 @@ function TemperatureSlider({
   className,
   defaultValue,
   value,
-  unit = "C",
+  unit,
   ...props
 }: TemperatureSliderProps) {
   const min = getMin(unit);

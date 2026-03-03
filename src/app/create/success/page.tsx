@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function CreateSuccess() {
@@ -15,8 +15,6 @@ export default function CreateSuccess() {
   const voteLink = `${domain}/vote/${voteID}`;
   const reportLink = `${domain}/report/${voteID}`;
 
-  const pathname = usePathname();
-  console.log("pathname", pathname);
   const [wasCopied, setWasCopied] = useState(false);
 
   useEffect(() => {

@@ -46,7 +46,6 @@ export default function Create() {
               type="text"
               className="bg-background"
               placeholder={`${currentMonth} Office Temperature`}
-              defaultValue="---"
               required
             />
           </Field>
@@ -84,7 +83,6 @@ export default function Create() {
                 step={0.5}
                 placeholder=""
                 required
-                defaultValue={0}
               />
               <InputGroupAddon align="inline-end">
                 °{selectedUnit}

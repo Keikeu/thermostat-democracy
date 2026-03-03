@@ -11,7 +11,7 @@ export default function Start({
   return (
     <div className="flex flex-col gap-3 items-center text-center">
       <h1>
-        Cast the vote for <i className="font-bold">{election.name}</i>
+        Cast the vote for <strong className="font-bold">{election.name}</strong>
       </h1>
       <p>
         Help us set the office thermostat fairly. <br />

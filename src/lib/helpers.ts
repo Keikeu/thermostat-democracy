@@ -38,7 +38,13 @@ export function calculateDiscomfortScore(
     if (temperature === vote.ideal_temp) {
       discomfortScore = 0;
     } else if (isInRange(temperature, vote.comfort_range)) {
-      discomfortScore = 1;
+      // Scale from 0 (at ideal) to 1 (at edge of comfort range)
+      const distanceFromIdeal = Math.abs(temperature - vote.ideal_temp);
+      const edgeOfRange =
+        temperature < vote.ideal_temp
+          ? vote.ideal_temp - vote.comfort_range[0]
+          : vote.comfort_range[1] - vote.ideal_temp;
+      discomfortScore = distanceFromIdeal / edgeOfRange;
     } else if (temperature < vote.comfort_range[0]) {
       discomfortScore = Math.abs(vote.comfort_range[0] - temperature) + 1;
     } else if (temperature > vote.comfort_range[1]) {
@@ -76,7 +82,9 @@ export function calculateSweetSpot(votes: Vote[], unit: Unit): number {
     .filter(([, score]) => score <= minScore + 1e-10)
     .map(([temp]) => temp);
 
-  if (sweetSpots.length === 1) {
+  if (sweetSpots.length === 0) {
+    return 0;
+  } else if (sweetSpots.length === 1) {
     return sweetSpots[0];
   } else {
     const averageIdeal = calculateAverageIdeal(votes);
@@ -102,6 +110,8 @@ export function calculateMedianIdeal(votes: Vote[]): number {
 }
 
 export function calculateModeIdeal(votes: Vote[]): number {
+  if (votes.length === 0) return 0;
+
   const counts = new Map<number, number>();
   votes.forEach((v) =>
     counts.set(v.ideal_temp, (counts.get(v.ideal_temp) ?? 0) + 1),
@@ -178,8 +188,6 @@ function getVotesWithCurrentTemp(
 
 export function calculateAverageGuess(votes: Vote[]): string {
   const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
-
-  console.log(votesWithCurrentTemp);
   return formatTemp(
     votesWithCurrentTemp.reduce((sum, v) => sum + v.current_temp, 0) /
       votesWithCurrentTemp.length,
@@ -261,7 +269,7 @@ export function getIdealTempChartData(votes: Vote[], unit: Unit) {
   for (let i = min; i <= max; i += 0.5) {
     data.push({
       temperature: i,
-      comfortableCount: votes.filter((v) => v.ideal_temp === i).length,
+      idealCount: votes.filter((v) => v.ideal_temp === i).length,
     });
   }
 
@@ -289,22 +297,22 @@ export function getCalibrationChartData(votes: Vote[], unit: Unit) {
   for (let i = min; i <= max; i += 0.5) {
     data.push({
       temperature: i,
-      comfortableCount: votes.filter((v) => v.current_temp === i).length,
+      estimatedCount: votes.filter((v) => v.current_temp === i).length,
     });
   }
 
   return data;
 }
 
-export function getMin(unit: Unit = "C") {
+export function getMin(unit: Unit) {
   return unit === "C" ? 15 : 60;
 }
 
-export function getMax(unit: Unit = "C") {
+export function getMax(unit: Unit) {
   return unit === "C" ? 28 : 85;
 }
 
-export function getThermostatLabels(unit: Unit = "C"): number[] {
+export function getThermostatLabels(unit: Unit): number[] {
   const labels = [];
   const min = getMin(unit);
   const max = getMax(unit);
@@ -316,10 +324,7 @@ export function getThermostatLabels(unit: Unit = "C"): number[] {
   return labels;
 }
 
-export function getThermostatRangePosition(
-  value: number,
-  unit: Unit = "C",
-): number {
+export function getThermostatRangePosition(value: number, unit: Unit): number {
   const min = getMin(unit);
   const max = getMax(unit);
 

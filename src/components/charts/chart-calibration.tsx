@@ -6,7 +6,7 @@ import { ChartLegend } from "./legend";
 import { useSharedChartElements } from "./shared";
 
 const chartConfig = {
-  comfortableCount: {
+  estimatedCount: {
     label: "Temperature Estimation",
     color: "var(--coral-glassy-opaque)",
   },
@@ -17,11 +17,12 @@ export function ChartCalibration({
   currentTemp,
   sweetSpot,
 }: {
-  data: { temperature: number; comfortableCount: number }[];
+  data: { temperature: number; estimatedCount: number }[];
   currentTemp: number;
   sweetSpot: number;
 }) {
   const sharedElements = useSharedChartElements({
+    dataKey: "estimatedCount",
     sweetSpot: sweetSpot,
     currentTemp: currentTemp,
   });
@@ -37,10 +38,7 @@ export function ChartCalibration({
       >
         <BarChart accessibilityLayer data={data}>
           {sharedElements}
-          <Bar
-            dataKey="comfortableCount"
-            fill="var(--color-comfortableCount)"
-          />
+          <Bar dataKey="estimatedCount" fill="var(--color-estimatedCount)" />
         </BarChart>
       </ChartContainer>
       <ChartLegend />

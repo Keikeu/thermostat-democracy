@@ -10,7 +10,7 @@ export function SubmitButton({
   variant = "default",
   ...props
 }: React.ComponentProps<"button"> & {
-  variant:
+  variant?:
     | "link"
     | "default"
     | "secondary"

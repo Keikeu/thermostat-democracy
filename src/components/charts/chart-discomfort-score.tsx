@@ -36,6 +36,7 @@ export function ChartDiscomfortScore({
 }) {
   const [activeValue, setActiveValue] = useState(currentTemp);
   const sharedElements = useSharedChartElements({
+    dataKey: "discomfortScore",
     sweetSpot: sweetSpot,
     currentTemp: currentTemp,
   });
@@ -57,7 +58,7 @@ export function ChartDiscomfortScore({
       </span>
       <div className="flex items-center gap-4">
         <span className="text-3xl font-bold tabular-nums w-24">
-          {activeValue}°C
+          {activeValue}°{unit}
         </span>
 
         <Separator orientation="vertical" className="h-8" />

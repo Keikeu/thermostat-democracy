@@ -6,7 +6,7 @@ import { useSharedChartElements } from "./shared";
 import { ChartLegend } from "./legend";
 
 const chartConfig = {
-  comfortableCount: {
+  idealCount: {
     label: "Ideal Temperature",
     color: "var(--coral-glassy-opaque)",
   },
@@ -17,11 +17,12 @@ export function ChartIdealTemp({
   currentTemp,
   sweetSpot,
 }: {
-  data: { temperature: number; comfortableCount: number }[];
+  data: { temperature: number; idealCount: number }[];
   currentTemp: number;
   sweetSpot: number;
 }) {
   const sharedElements = useSharedChartElements({
+    dataKey: "idealCount",
     sweetSpot: sweetSpot,
     currentTemp: currentTemp,
   });
@@ -37,10 +38,7 @@ export function ChartIdealTemp({
       >
         <BarChart accessibilityLayer data={data}>
           {sharedElements}
-          <Bar
-            dataKey="comfortableCount"
-            fill="var(--color-comfortableCount)"
-          />
+          <Bar dataKey="idealCount" fill="var(--color-idealCount)" />
         </BarChart>
       </ChartContainer>
       <ChartLegend />
