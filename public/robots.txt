@@ -1,0 +1,7 @@
+# Block all crawlers for /create
+User-agent: *
+Disallow: /create
+ 
+# Allow all crawlers
+User-agent: *
+Allow: /
