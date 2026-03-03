@@ -56,7 +56,7 @@ export function ChartDiscomfortScore({
       <span className="text-sm uppercase text-brown">
         What is the discomfort score at each temperature?
       </span>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col-reverse md:flex-row md:items-center gap-2 md:gap-4">
         <span className="text-3xl font-bold tabular-nums w-24">
           {activeValue}°{unit}
         </span>
@@ -78,7 +78,7 @@ export function ChartDiscomfortScore({
           </span>
           <span className="font-medium">
             {howManyComfortable}{" "}
-            {howManyComfortable === 1 ? "person" : "people"}
+            {howManyComfortable === 1 ? "person" : "people"}{" "}
             <span className="text-muted-foreground ml-1">
               ({howManyComfortablePercentage}%)
             </span>
