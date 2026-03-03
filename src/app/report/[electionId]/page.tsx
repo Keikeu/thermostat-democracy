@@ -1,5 +1,3 @@
-"use";
-
 import { getElection } from "@/app/actions/getElection";
 import { getVotesForElection } from "@/app/actions/getVotesForElection";
 import { ChartCalibration } from "@/components/charts/chart-calibration";
