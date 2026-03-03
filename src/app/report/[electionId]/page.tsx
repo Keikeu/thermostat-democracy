@@ -5,7 +5,7 @@ import { getVotesForElection } from "@/app/actions/getVotesForElection";
 import { ChartCalibration } from "@/components/charts/chart-calibration";
 import { ChartComfortRange } from "@/components/charts/chart-comfort-range";
 import { ChartIdealTemp } from "@/components/charts/chart-ideal-temp";
-import { ChartSweetSpot } from "@/components/charts/chart-sweet-spot";
+import { ChartDiscomfortScore } from "@/components/charts/chart-discomfort-score";
 import ReportCard from "@/components/custom/report-card";
 import Thermostat from "@/components/custom/thermostat";
 import { Badge } from "@/components/ui/badge";
@@ -28,7 +28,7 @@ import {
   getCalibrationChartData,
   getComfortRangeChartData,
   getIdealTempChartData,
-  getSweetSpotChartData,
+  getDiscomfortScoreChartData,
 } from "@/lib/helpers";
 
 export default async function Report({
@@ -74,7 +74,7 @@ export default async function Report({
   const underestimated = calculateUnderestimated(votes, currentTemp);
   const overestimated = calculateOverestimated(votes, currentTemp);
 
-  const sweeetSpotChartData = getSweetSpotChartData(votes, unit);
+  const discomfortScoreChartData = getDiscomfortScoreChartData(votes, unit);
   const idealTempChartData = getIdealTempChartData(votes, unit);
   const comfortRangeChartData = getComfortRangeChartData(votes);
   const calibrationChartData = getCalibrationChartData(votes, unit);
@@ -122,15 +122,14 @@ export default async function Report({
           <ReportCard label="Comfortable for" value={sweetSpotComfortableFor} />
         </div>
 
-        <ChartSweetSpot
-          data={sweeetSpotChartData}
+        <ChartDiscomfortScore
+          data={discomfortScoreChartData}
           numberOfVotes={numberOfVotes}
           unit={unit}
           currentTemp={currentTemp}
           sweetSpot={sweetSpot}
         />
       </section>
-
       <section>
         <h2 className="mb-8">Ideal Temperature</h2>
         <div className="flex gap-8 my-8">
@@ -145,7 +144,6 @@ export default async function Report({
           sweetSpot={sweetSpot}
         />
       </section>
-
       <section>
         <h2 className="mb-8">Comfort Range</h2>
         <div className="flex gap-8 my-8">
@@ -165,7 +163,6 @@ export default async function Report({
 
         <ChartComfortRange data={comfortRangeChartData} unit={unit} />
       </section>
-
       <section>
         <h2 className="mb-8">Calibration</h2>
         <div className="flex gap-8 my-8">
@@ -180,7 +177,11 @@ export default async function Report({
           />
         </div>
         <div className="flex gap-8 my-8">
-          <ReportCard label="Got it right" value={gotItRight} />
+          <ReportCard
+            label="Got it right"
+            sub="within 0.5° from actual"
+            value={gotItRight}
+          />
           <ReportCard label="Underestimated" value={underestimated} />
           <ReportCard label="Overestimated" value={overestimated} />
         </div>
@@ -191,7 +192,6 @@ export default async function Report({
           sweetSpot={sweetSpot}
         />
       </section>
-
       <section>
         <h2 className="mb-8">More tips and tricks</h2>
         <div className="flex flex-col gap-6">

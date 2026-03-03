@@ -3,10 +3,12 @@ import { cn } from "@/lib/utils";
 export default function ReportCard({
   label,
   value,
+  sub,
   className,
 }: {
   label: string;
   value: string;
+  sub?: string;
   className?: string;
 }) {
   return (
@@ -16,8 +18,9 @@ export default function ReportCard({
         className,
       )}
     >
-      <span className="text-sm uppercase text-muted-foreground">{label}</span>
+      <span className="text-sm uppercase text-brown">{label}</span>
       <span className="font-bold text-4xl">{value}</span>
+      {sub && <sub className="text-muted-foreground">{sub}</sub>}
     </div>
   );
 }

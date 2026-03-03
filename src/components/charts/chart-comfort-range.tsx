@@ -15,7 +15,7 @@ export function ChartComfortRange({
 
   return (
     <div className="flex flex-col gap-8 mt-8 bg-background p-8">
-      <span className="text-sm uppercase text-muted-foreground">
+      <span className="text-sm uppercase text-brown">
         All ranges at a glance
       </span>
 

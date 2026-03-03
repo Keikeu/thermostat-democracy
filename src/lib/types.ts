@@ -13,5 +13,5 @@ export type Vote = {
   election_id: string;
   ideal_temp: number;
   comfort_range: [number, number];
-  current_temp: number;
+  current_temp: number | null;
 };

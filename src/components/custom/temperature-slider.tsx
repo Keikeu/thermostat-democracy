@@ -21,7 +21,6 @@ function TemperatureSlider({
   defaultValue,
   value,
   unit = "C",
-  marker,
   ...props
 }: TemperatureSliderProps) {
   const min = getMin(unit);
@@ -78,13 +77,6 @@ function TemperatureSlider({
               style={{ left: (100 / numberOfTicks) * (i + 1) + "%" }}
             />
           ))}
-          {/* {marker && (
-            <div
-              data-color="black"
-              className="h-20 w-3 top-0 bg-coral-glassy-opaque absolute"
-              style={{ left: `calc(${getPosition(marker, unit)}% - 6px)` }}
-            />
-          )} */}
           {isRange && (
             <SliderPrimitive.Range
               data-slot="slider-range"

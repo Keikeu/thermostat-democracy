@@ -47,8 +47,12 @@ export default function Thermostat({
             className="absolute bg-white size-5 rounded-full top-[50%] translate-y-[-50%] after:absolute after:top-[50%] after:left-[50%] after:translate-x-[-50%] after:w-1 after:h-10 after:bg-white"
             style={{ left: getThermostatRangePosition(sweetSpot) + "%" }}
           >
-            <span className="block w-max absolute top-15 left-[50%] translate-x-[-50%] font-bold">
-              {sweetSpot}°{unit}
+            <span className="block w-max absolute top-15 left-[50%] translate-x-[-50%] text-center">
+              <b>
+                {sweetSpot}°{unit}
+              </b>
+              <br />
+              The Sweet Spot
             </span>
           </div>
         )}

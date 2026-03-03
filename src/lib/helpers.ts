@@ -18,7 +18,7 @@ export function formatTemp(value: number): string {
 }
 
 export function formatPercent(value: number): string {
-  return `${value.toFixed(1)}%`;
+  return `${value.toFixed(0)}%`;
 }
 
 export function formatBias(value: number): string {
@@ -168,9 +168,21 @@ export function calculateSweetSpotInComfortRange(
   return formatPercent((inRange.length * 100) / votes.length);
 }
 
+function getVotesWithCurrentTemp(
+  votes: Vote[],
+): (Vote & { current_temp: number })[] {
+  return votes.filter(
+    (v): v is Vote & { current_temp: number } => v.current_temp !== null,
+  );
+}
+
 export function calculateAverageGuess(votes: Vote[]): string {
+  const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+
+  console.log(votesWithCurrentTemp);
   return formatTemp(
-    votes.reduce((sum, v) => sum + v.current_temp, 0) / votes.length,
+    votesWithCurrentTemp.reduce((sum, v) => sum + v.current_temp, 0) /
+      votesWithCurrentTemp.length,
   );
 }
 
@@ -178,9 +190,12 @@ export function calculateAveragePerceptionBias(
   votes: Vote[],
   currentTemp: number,
 ): string {
+  const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
   return formatBias(
-    votes.reduce((sum, v) => sum + (v.current_temp - currentTemp), 0) /
-      votes.length,
+    votesWithCurrentTemp.reduce(
+      (sum, v) => sum + (v.current_temp - currentTemp),
+      0,
+    ) / votesWithCurrentTemp.length,
   );
 }
 
@@ -188,29 +203,36 @@ export function calculateGotItRight(
   votes: Vote[],
   currentTemp: number,
 ): string {
-  const correct = votes.filter(
+  const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  const correct = votesWithCurrentTemp.filter(
     (v) => Math.abs(v.current_temp - currentTemp) <= 0.5,
   );
-  return formatPercent((correct.length * 100) / votes.length);
+  return formatPercent((correct.length * 100) / votesWithCurrentTemp.length);
 }
 
 export function calculateUnderestimated(
   votes: Vote[],
   currentTemp: number,
 ): string {
-  const under = votes.filter((v) => v.current_temp < currentTemp - 0.5);
-  return formatPercent((under.length * 100) / votes.length);
+  const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  const under = votesWithCurrentTemp.filter(
+    (v) => v.current_temp < currentTemp - 0.5,
+  );
+  return formatPercent((under.length * 100) / votesWithCurrentTemp.length);
 }
 
 export function calculateOverestimated(
   votes: Vote[],
   currentTemp: number,
 ): string {
-  const over = votes.filter((v) => v.current_temp > currentTemp + 0.5);
-  return formatPercent((over.length * 100) / votes.length);
+  const votesWithCurrentTemp = getVotesWithCurrentTemp(votes);
+  const over = votesWithCurrentTemp.filter(
+    (v) => v.current_temp > currentTemp + 0.5,
+  );
+  return formatPercent((over.length * 100) / votesWithCurrentTemp.length);
 }
 
-export function getSweetSpotChartData(votes: Vote[], unit: Unit) {
+export function getDiscomfortScoreChartData(votes: Vote[], unit: Unit) {
   const discomfortScoreMap = getDiscomfortScoreMap(votes, unit);
 
   const ranges = votes.map((v) => v.comfort_range);

@@ -12,12 +12,12 @@ import { Separator } from "../ui/separator";
 
 const chartConfig = {
   discomfortScore: {
-    label: "Comfortable people",
-    color: "oklch(0.77 0.0688 26.7)",
+    label: "Sweet Spot",
+    color: "var(--coral-glassy-opaque)",
   },
 } satisfies ChartConfig;
 
-export function ChartSweetSpot({
+export function ChartDiscomfortScore({
   data,
   numberOfVotes,
   unit,
@@ -51,8 +51,8 @@ export function ChartSweetSpot({
   );
 
   return (
-    <div className="flex flex-col gap-8 mt-20 bg-background p-8">
-      <span className="text-sm uppercase text-muted-foreground">
+    <div className="flex flex-col gap-8 mt-8 bg-background p-8">
+      <span className="text-sm uppercase text-brown">
         What is the discomfort score at each temperature?
       </span>
       <div className="flex items-center gap-4">
@@ -72,7 +72,9 @@ export function ChartSweetSpot({
         <Separator orientation="vertical" className="h-8" />
 
         <div className="flex flex-col">
-          <span className="text-xs text-muted-foreground">Comfortable</span>
+          <span className="text-xs text-muted-foreground">
+            Who is comfortable
+          </span>
           <span className="font-medium">
             {howManyComfortable}{" "}
             {howManyComfortable === 1 ? "person" : "people"}

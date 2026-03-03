@@ -7,8 +7,8 @@ import { useSharedChartElements } from "./shared";
 
 const chartConfig = {
   comfortableCount: {
-    label: "Ideal Temperature",
-    color: "oklch(0.77 0.0688 26.7)",
+    label: "Temperature Estimation",
+    color: "var(--coral-glassy-opaque)",
   },
 } satisfies ChartConfig;
 
@@ -28,7 +28,7 @@ export function ChartCalibration({
 
   return (
     <div className="flex flex-col gap-8 mt-8 bg-background p-8">
-      <span className="text-sm uppercase text-muted-foreground">
+      <span className="text-sm uppercase text-brown">
         Current temperature estimation
       </span>
       <ChartContainer

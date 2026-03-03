@@ -2,6 +2,66 @@ import Image from "next/image";
 import Thermostat from "@/components/custom/thermostat";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Vote } from "@/lib/types";
+
+const dummyVotes: Vote[] = [
+  {
+    ideal_temp: 18,
+    comfort_range: [16, 21],
+    current_temp: 20,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 19,
+    comfort_range: [17.5, 21],
+    current_temp: 20.5,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 20,
+    comfort_range: [18, 22],
+    current_temp: 21.5,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 21.5,
+    comfort_range: [20, 25],
+    current_temp: 22.5,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 22,
+    comfort_range: [20.5, 24.5],
+    current_temp: null,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 22,
+    comfort_range: [21.5, 22.5],
+    current_temp: 22.5,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 23,
+    comfort_range: [22, 25.5],
+    current_temp: null,
+    id: "uuid",
+    election_id: "dummy",
+  },
+  {
+    ideal_temp: 24,
+    comfort_range: [23, 27],
+    current_temp: 23.5,
+    id: "uuid",
+    election_id: "dummy",
+  },
+];
 
 export default function Home() {
   return (
@@ -19,7 +79,7 @@ export default function Home() {
           <span className="text-sm text-current/75 mt-2">
             No account required
           </span>
-          <Thermostat votes={[]} unit="C" />
+          <Thermostat votes={dummyVotes} unit="C" withLabels />
         </section>
 
         <section className="mt-20">
