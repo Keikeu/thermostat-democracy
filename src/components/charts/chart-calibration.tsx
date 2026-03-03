@@ -34,7 +34,7 @@ export function ChartCalibration({
       </span>
       <ChartContainer
         config={chartConfig}
-        className="min-h-[200px] h-[280px] pt-4 pr-4 w-full"
+        className="min-h-[200px] h-[280px] -ml-14 -mr-6 md:w-full md:m-0 md:pt-4 md:pr-4 !aspect-auto"
       >
         <BarChart accessibilityLayer data={data}>
           {sharedElements}

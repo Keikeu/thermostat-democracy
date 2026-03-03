@@ -117,7 +117,7 @@ export default async function Report({
               becomes <b>The Sweet Spot</b>.
             </p>
 
-            <div className="flex gap-8 my-8">
+            <div className="flex gap-2 md:gap-8 my-8 flex-wrap md:flex-nowrap">
               <ReportCard
                 label="The Sweet Spot"
                 value={formatTemp(sweetSpot) + unit}
@@ -139,7 +139,7 @@ export default async function Report({
           </section>
           <section>
             <h2 className="mb-8">Ideal Temperature</h2>
-            <div className="flex gap-8 my-8">
+            <div className="flex gap-2 md:gap-8 my-8 flex-wrap md:flex-nowrap">
               <ReportCard label="Average" value={averageIdeal + unit} />
               <ReportCard label="Median" value={medianIdeal + unit} />
               <ReportCard label="Mode" value={modeIdeal + unit} />
@@ -153,7 +153,7 @@ export default async function Report({
           </section>
           <section>
             <h2 className="mb-8">Comfort Range</h2>
-            <div className="flex gap-8 my-8">
+            <div className="flex gap-2 md:gap-8 my-8 flex-wrap md:flex-nowrap">
               <ReportCard
                 label="Current temperature within comfort range"
                 value={currentTempInComforRange}
@@ -172,7 +172,7 @@ export default async function Report({
           </section>
           <section>
             <h2 className="mb-8">Calibration</h2>
-            <div className="flex gap-8 my-8">
+            <div className="flex gap-2 md:gap-8 my-8 flex-wrap md:flex-nowrap">
               <ReportCard
                 label="Current office setting"
                 value={formatTemp(currentTemp) + unit}
@@ -183,7 +183,7 @@ export default async function Report({
                 value={avergagePerceptionBias + unit}
               />
             </div>
-            <div className="flex gap-8 my-8">
+            <div className="flex gap-2 md:gap-8 my-8 flex-wrap md:flex-nowrap">
               <ReportCard
                 label="Got it right"
                 sub="within 0.5° from actual"
