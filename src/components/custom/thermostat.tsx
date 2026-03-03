@@ -22,8 +22,6 @@ export default function Thermostat({
     right: 100 - getThermostatRangePosition(v.comfort_range[1], unit) + "%",
   }));
 
-  console.log(votes);
-
   return (
     <div className="my-12 w-full">
       {withLabels && (
@@ -46,7 +44,7 @@ export default function Thermostat({
             }}
           />
         ))}
-        {withLabels && (
+        {withLabels && !!votes.length && (
           <div
             className="absolute bg-white size-5 rounded-full top-[50%] translate-y-[-50%] after:absolute after:top-[50%] after:left-[50%] after:translate-x-[-50%] after:w-1 after:h-10 after:bg-white"
             style={{ left: getThermostatRangePosition(sweetSpot, unit) + "%" }}
