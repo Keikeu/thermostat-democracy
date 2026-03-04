@@ -34,15 +34,15 @@ export function ChartDiscomfortScore({
   currentTemp: number;
   sweetSpot: number;
 }) {
-  const [activeValue, setActiveValue] = useState(currentTemp);
+  const min = getMin(unit);
+  const max = getMax(unit);
+
+  const [activeValue, setActiveValue] = useState(min + 1);
   const sharedElements = useSharedChartElements({
     dataKey: "discomfortScore",
     sweetSpot: sweetSpot,
     currentTemp: currentTemp,
   });
-
-  const min = getMin(unit);
-  const max = getMax(unit);
 
   const datapoint = data.find((d) => d.temperature === activeValue);
   const discomfortScore = datapoint?.discomfortScore;
@@ -106,13 +106,13 @@ export function ChartDiscomfortScore({
             if (temperature) setActiveValue(temperature);
           }}
         >
-          {sharedElements}
           <ReferenceLine
             x={activeValue}
             stroke="var(--coral)"
-            strokeWidth={2}
-            strokeDasharray="3 3"
+            strokeWidth={3}
+            strokeDasharray="6 3"
           />
+          {sharedElements}
           <Bar dataKey="discomfortScore" fill="var(--color-discomfortScore)">
             {data.map((d, i) => (
               <Cell

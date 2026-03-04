@@ -10,7 +10,13 @@ export const useSharedChartElements = ({
   currentTemp: number;
 }) => [
   <CartesianGrid key="grid" />,
-  <YAxis key="yaxis" dataKey={dataKey} tickLine={true} tickMargin={10} />,
+  <YAxis
+    key="yaxis"
+    dataKey={dataKey}
+    tickLine={true}
+    tickMargin={10}
+    domain={[0, "dataMax + 1"]}
+  />,
   <XAxis
     key="xaxis"
     dataKey="temperature"
@@ -22,14 +28,14 @@ export const useSharedChartElements = ({
     key="current"
     x={currentTemp}
     stroke="var(--chart-1)"
-    strokeWidth={2}
-    strokeDasharray="3 3"
+    strokeWidth={3}
+    strokeDasharray="6 3"
   />,
   <ReferenceLine
     key="sweet"
     x={sweetSpot}
     stroke="var(--chart-2)"
-    strokeWidth={2}
-    strokeDasharray="3 3"
+    strokeWidth={3}
+    strokeDasharray="6 3"
   />,
 ];

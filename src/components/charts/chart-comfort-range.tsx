@@ -24,13 +24,13 @@ export function ChartComfortRange({
       <div className="flex items-center gap-3">
         <div className="relative flex flex-col gap-2.5 w-full">
           <div
-            className="absolute h-full w-px border-r-2 border-dashed border-chart-1"
+            className="absolute h-full w-0.5 border-r-3 border-dashed border-chart-1"
             style={{
               left: `${getPositionForValueInRange(currentTemp, unit)}%`,
             }}
           />
           <div
-            className="absolute h-full w-px border-r-2 border-dashed border-chart-2"
+            className="absolute h-full w-0.5 border-r-3 border-dashed border-chart-2"
             style={{ left: `${getPositionForValueInRange(sweetSpot, unit)}%` }}
           />
           {data.map((row, i) => {
