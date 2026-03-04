@@ -168,7 +168,12 @@ export default async function Report({
               />
             </div>
 
-            <ChartComfortRange data={comfortRangeChartData} unit={unit} />
+            <ChartComfortRange
+              data={comfortRangeChartData}
+              unit={unit}
+              currentTemp={currentTemp}
+              sweetSpot={sweetSpot}
+            />
           </section>
           <section>
             <h2 className="mb-8">Calibration</h2>

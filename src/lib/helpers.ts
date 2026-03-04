@@ -161,10 +161,7 @@ export function calculateCurrentTempInComfortRange(
   votes: Vote[],
   currentTemp: number,
 ): string {
-  const inRange = votes.filter(
-    (v) =>
-      currentTemp >= v.comfort_range[0] && currentTemp <= v.comfort_range[1],
-  );
+  const inRange = votes.filter((v) => isInRange(currentTemp, v.comfort_range));
   return formatPercent((inRange.length * 100) / votes.length);
 }
 
@@ -172,9 +169,7 @@ export function calculateSweetSpotInComfortRange(
   votes: Vote[],
   sweetSpot: number,
 ): string {
-  const inRange = votes.filter(
-    (v) => sweetSpot >= v.comfort_range[0] && sweetSpot <= v.comfort_range[1],
-  );
+  const inRange = votes.filter((v) => isInRange(sweetSpot, v.comfort_range));
   return formatPercent((inRange.length * 100) / votes.length);
 }
 
@@ -334,7 +329,7 @@ export function getThermostatLabels(unit: Unit): number[] {
   return labels;
 }
 
-export function getThermostatRangePosition(value: number, unit: Unit): number {
+export function getPositionForValueInRange(value: number, unit: Unit): number {
   const min = getMin(unit);
   const max = getMax(unit);
 

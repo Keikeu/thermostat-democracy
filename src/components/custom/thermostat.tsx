@@ -1,7 +1,7 @@
 import {
   calculateSweetSpot,
   getThermostatLabels,
-  getThermostatRangePosition,
+  getPositionForValueInRange,
 } from "@/lib/helpers";
 import { Unit, Vote } from "@/lib/types";
 
@@ -18,8 +18,8 @@ export default function Thermostat({
   const labels = getThermostatLabels(unit);
 
   const boxes = votes.map((v) => ({
-    left: getThermostatRangePosition(v.comfort_range[0], unit) + "%",
-    right: 100 - getThermostatRangePosition(v.comfort_range[1], unit) + "%",
+    left: getPositionForValueInRange(v.comfort_range[0], unit) + "%",
+    right: 100 - getPositionForValueInRange(v.comfort_range[1], unit) + "%",
   }));
 
   return (
@@ -47,7 +47,7 @@ export default function Thermostat({
         {withLabels && !!votes.length && (
           <div
             className="absolute bg-white size-5 rounded-full top-[50%] translate-y-[-50%] after:absolute after:top-[50%] after:left-[50%] after:translate-x-[-50%] after:w-1 after:h-10 after:bg-white"
-            style={{ left: getThermostatRangePosition(sweetSpot, unit) + "%" }}
+            style={{ left: getPositionForValueInRange(sweetSpot, unit) + "%" }}
           >
             <span className="block w-max absolute top-15 left-[50%] translate-x-[-50%] text-center">
               <b>
