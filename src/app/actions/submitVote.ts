@@ -17,15 +17,15 @@ export async function submitVote(formData: FormData) {
 
   const supabase = await createClient();
 
-  const { error } = await supabase.from("votes").insert({
+  const response = await supabase.from("votes").insert({
     election_id: electionId,
     ideal_temp: parseFloat(idealTemp),
     comfort_range: comfortRange.map((el) => parseFloat(el)),
     current_temp: parseFloat(currentTemp),
   });
 
-  if (error) {
-    throw new Error(error.message);
+  if (response.error) {
+    throw new Error(response.error.message);
   }
 
   redirect(`/vote/${electionId}/success`);
